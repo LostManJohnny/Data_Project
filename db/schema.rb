@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_13_161100) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_13_162724) do
   create_table "artists", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -49,6 +49,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_161100) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "block"
+    t.date "release_date"
   end
 
   create_table "card_subtypes", force: :cascade do |t|
