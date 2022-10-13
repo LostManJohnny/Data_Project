@@ -1,0 +1,61 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  artist: one
+  ascii_name: MyString
+  border_color: MyString
+  color_identity: MyString
+  colors: MyString
+  cmc: 1
+  finishes: MyString
+  flavor_name: MyString
+  flavor_text: MyText
+  has_foil: false
+  is_alternative: false
+  is_fullart: false
+  is_oversized: false
+  is_promo: false
+  is_reprint: false
+  is_reserved: false
+  layout: MyString
+  life: 1
+  loyalty: 1
+  mana_cost: MyString
+  name: MyString
+  original_printing: one
+  power: 1
+  toughness: 1
+  rarity: MyString
+  scryfallid: MyString
+  card_set: one
+  card_text: MyText
+
+two:
+  artist: two
+  ascii_name: MyString
+  border_color: MyString
+  color_identity: MyString
+  colors: MyString
+  cmc: 1
+  finishes: MyString
+  flavor_name: MyString
+  flavor_text: MyText
+  has_foil: false
+  is_alternative: false
+  is_fullart: false
+  is_oversized: false
+  is_promo: false
+  is_reprint: false
+  is_reserved: false
+  layout: MyString
+  life: 1
+  loyalty: 1
+  mana_cost: MyString
+  name: MyString
+  original_printing: two
+  power: 1
+  toughness: 1
+  rarity: MyString
+  scryfallid: MyString
+  card_set: two
+  card_text: MyText
