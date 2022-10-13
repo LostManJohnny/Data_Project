@@ -44,3 +44,8 @@
   # types
 
 require('csv')
+
+csv_file = Rails.root.join('db/cards.csv')
+csv_data = File.read(csv_file)
+
+cards = CSV.parse(csv_data, headers: true, encoding: "utf-8")
