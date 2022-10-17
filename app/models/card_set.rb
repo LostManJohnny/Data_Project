@@ -1,2 +1,0 @@
-class CardSet < ApplicationRecord
-end

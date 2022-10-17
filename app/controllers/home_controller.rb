@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
   def index
-    @cards = Cards.all
+    @cards = Card.limit(10)
+
+    @sets = CardSet.limit(10)
   end
 end
