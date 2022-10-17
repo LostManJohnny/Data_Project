@@ -1,6 +1,6 @@
 require "test_helper"
 
-class CardtypeTest < ActiveSupport::TestCase
+class MagicSetTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -10,10 +10,78 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_13_162724) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_17_002609) do
   create_table "artists", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "cards", force: :cascade do |t|
+    t.integer "artist_id", null: false
+    t.string "ascii_name"
+    t.string "border_color"
+    t.string "color_identity"
+    t.string "colors"
+    t.integer "cmc"
+    t.string "finishes"
+    t.string "flavor_name"
+    t.text "flavor_text"
+    t.boolean "has_foil"
+    t.boolean "is_alternative"
+    t.boolean "is_fullart"
+    t.boolean "is_oversized"
+    t.boolean "is_promo"
+    t.boolean "is_reprint"
+    t.boolean "is_reserved"
+    t.string "layout"
+    t.integer "life"
+    t.integer "loyalty"
+    t.string "mana_cost"
+    t.string "name"
+    t.integer "original_printing_id", null: false
+    t.string "power"
+    t.string "toughness"
+    t.string "rarity"
+    t.string "scryfallid"
+    t.integer "magic_set_id", null: false
+    t.text "card_text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_id"], name: "index_cards_on_artist_id"
+    t.index ["magic_set_id"], name: "index_cards_on_magic_set_id"
+    t.index ["original_printing_id"], name: "index_cards_on_original_printing_id"
+  end
+
+  create_table "keywords", force: :cascade do |t|
+    t.string "keyword"
+    t.text "effect"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "magic_sets", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.string "block"
+    t.date "release_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "subtypes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "supertypes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "cards", "artists"
+  add_foreign_key "cards", "magic_set", column: "original_printing_id"
+  add_foreign_key "cards", "magic_sets"
+end
