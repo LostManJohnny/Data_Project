@@ -1,6 +1,6 @@
-class CreateCards < ActiveRecord::Migration[7.0]
+class CreateCard < ActiveRecord::Migration[7.0]
   def change
-    create_table :cards do |t|
+    create_table :card do |t|
       t.references :artist, null: false, foreign_key: true
       t.string :ascii_name, null: true
       t.string :border_color

@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_17_002609) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_17_005955) do
+  create_table "Cards_Keywords", id: false, force: :cascade do |t|
+    t.integer "Card_id", null: false
+    t.integer "Keyword_id", null: false
+  end
+
+  create_table "Cards_Printings", id: false, force: :cascade do |t|
+    t.integer "Card_id", null: false
+    t.integer "MagicSet_id", null: false
+  end
+
+  create_table "Cards_Subtypes", id: false, force: :cascade do |t|
+    t.integer "Card_id", null: false
+    t.integer "Subtype_id", null: false
+  end
+
+  create_table "Cards_Supertypes", id: false, force: :cascade do |t|
+    t.integer "Card_id", null: false
+    t.integer "Supertype_id", null: false
+  end
+
   create_table "artists", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false

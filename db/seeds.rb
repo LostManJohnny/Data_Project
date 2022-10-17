@@ -1,48 +1,5 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
-
-# CARD
-  # index	id
-  # artist
-  # asciiName
-  # borderColor
-  # colorIdentity
-  # colors
-  # convertedManaCost
-  # finishes
-  # flavorName
-  # flavorText
-  # hasFoil
-  # hasNonFoil
-  # isAlternative
-  # isFullArt
-  # isOversized
-  # isPromo
-  # isReprint
-  # isReserved
-  # keywords
-  # layout
-  # life
-  # loyalty
-  # manaCost
-  # name
-  # originalPrintings
-  # power
-  # printings
-  # set
-  # scryfallId
-  # scryfallIllustrationId
-  # setCode
-  # subtypes
-  # supertypes
-  # text
-  # toughness
-  # types
 
 require('csv')
 
@@ -59,46 +16,46 @@ card_sets = CSV.parse(sets_csv_data, headers:true, encoding: "utf-8")
 keywords = CSV.parse(keywords_csv_data, headers:true, encoding: "utf-8")
 
 Card.destroy_all
-# MagicSet.destroy_all
-# Artist.destroy_all
-# Keyword.destroy_all
+MagicSet.destroy_all
+Artist.destroy_all
+Keyword.destroy_all
 
-# Add all sets
-# card_sets.each do | card_set |
-#   new_set = MagicSet.create(
-#     code: card_set["code"],
-#     name: card_set["name"],
-#     block: card_set["block"],
-#     release_date: card_set["release_date"]
-#   );
+# Add Sets
+card_sets.each do | card_set |
+  new_set = MagicSet.create(
+    code: card_set["code"],
+    name: card_set["name"],
+    block: card_set["block"],
+    release_date: Date.strptime(card_set["release_date"],'%Y-%m-%d')
+  );
 
-#   if !new_set.valid?
-#     puts "new_set error
-#             \n\tcode : #{card_set["code"]}
-#             \n\tname : #{card_set["name"]}
-#             \n\tblock : #{card_set["block"]}
-#             \n\trelease_date : #{card_set["release_date"]}";
-#   end
-# end
+  if !new_set.valid?
+    puts "new_set error
+            \n\tcode : #{card_set["code"]}
+            \n\tname : #{card_set["name"]}
+            \n\tblock : #{card_set["block"]}
+            \n\trelease_date : #{card_set["release_date"]}";
+    # 1993-12-01 Date Format
+  end
+end
 
-#Add all keywords
-# keywords.each do | keyword |
-#   new_word = Keyword.create(
-#     keyword: keyword["Keyword"],
-#     effect: keyword["Effect"]
-#   )
+# Add Keywords
+keywords.each do | keyword |
+  new_word = Keyword.create(
+    keyword: keyword["Keyword"],
+    effect: keyword["Effect"]
+  )
 
-#   if !new_word.valid?
-#     puts "keyword error
-#             \n\tKeyword : #{keyword["Keyword"]}
-#             \n\tEffect : #{keyword["Effect"]}"
-#   end
-# end
+  if !new_word.valid?
+    puts "keyword error
+            \n\tKeyword : #{keyword["Keyword"]}
+            \n\tEffect : #{keyword["Effect"]}"
+  end
+end
 
-
-
+# Add Cards
 cards.each do | card |
-  # Find or create the artist entry
+  # Add / Find Artist
   artist = Artist.find_or_create_by(
     name: card["artist"]
   );
@@ -112,14 +69,15 @@ cards.each do | card |
 
     # Get Printings
     printings = card["printings"].split(",")
+
+    # Get Original Printing
     original_printing_code = printings[0]
     original_printing = MagicSet.find_by code: original_printing_code
 
     # Validate original print set
     if original_printing.valid?
       begin
-        new_card = Card.create(
-          artist_id:            artist.id                     ,
+        new_card = artist.Card.create(
           ascii_name:           card["asciiName"]             ,
           border_color:         card["borderColor"]           ,
           color_identity:       card["colorIdentity"]         ,
@@ -181,63 +139,57 @@ cards.each do | card |
         puts "\n\n" error.message
         exit!
       end
+
+
       if new_card.valid?
         # Parse Card Supertypes
         supertype_data = card["supertypes"].split(",")
+
+        # Add Card Supertypes
         supertype_data.each do | supertype |
-          type = Supertype.find_or_create_by(
-            name: supertype
-          )
-
-          #Card-Supertype table update
-          if type.valid?
-            new_card_supertype = CardSupertype.create(
-              card_id: new_card.id,
-              supertype_id: type.id
+          begin
+            new_card.supertypes.find_or_create_by(
+              name: supertype
             )
-
+          rescue
             puts "card_supertype error
                     \n\t card_id : #{new_card.id}
-                    \n\t supertype_id : #{type.id}" if !new_card_supertype.valid?
+                    \n\t supertype_id : #{type.id}
+                    \n\t supertype : #{supertype}"
           end
         end
 
         # Parse Card Subtypes
         subtype_data = card["subtypes"].split(",")
+
+        # Add Card Subtypes
         subtype_data.each do | subtype |
-          type = Subtype.find_or_create_by(
-            name: subtype
-          )
-
-          #Card-Subtype table update
-          if type.valid?
-            new_card_subtype = CardSubtype.create(
-              card_id: new_card.id,
-              subtype_id: type.id
+          begin
+            new_card.subtypes.find_or_create_by(
+              name: subtype
             )
-
+          rescue
             puts "card_subtype error
                     \n\t card_id : #{new_card.id}
-                    \n\t subtype_id : #{type.id}" if !new_card_subtype.valid?
+                    \n\t subtype_id : #{type.id}
+                    \n\t subtype : #{subtype}"
           end
         end
 
+        # Add Card Printings
         printings.each do | printing_code |
-          printing = MagicSet.find_by code: printing_code
-
-          if printing.valid?
-            card_printings.create(
-              cards_id: new_card.id,
-              magicsets_id: printing.id
+          begin
+            new_card.magicsets.find_or_create_by(
+              code: printing_code
             )
-          else
+
+          rescue
             puts "printing error\
                     \n\tprinting_code : #{printing_code}"
           end
         end
-
-      # Invalid Card
       else
+        # Invalid Card
         puts "card error
                 \n\tartist_id:            #{artist.id}
                 \n\tascii_name:           #{card["asciiName"]}
