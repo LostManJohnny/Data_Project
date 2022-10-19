@@ -1,7 +1,7 @@
-class CreateCard < ActiveRecord::Migration[7.0]
+class CreateCards < ActiveRecord::Migration[7.0]
   def change
-    create_table :card do |t|
-      t.references :artist, null: false, foreign_key: true
+    create_table :cards do |t|
+      t.references :artist, null: true, foreign_key: true
       t.string :ascii_name, null: true
       t.string :border_color
       t.string :color_identity
@@ -22,7 +22,7 @@ class CreateCard < ActiveRecord::Migration[7.0]
       t.integer :loyalty, null: true
       t.string :mana_cost
       t.string :name
-      t.references :original_printing, null: false, foreign_key: {to_table: :magic_set}
+      t.integer :original_printing, null: false, foreign_key: {to_table: :magic_set}
       t.string :power
       t.string :toughness
       t.string :rarity

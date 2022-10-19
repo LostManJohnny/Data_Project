@@ -10,35 +10,60 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_17_005955) do
-  create_table "Cards_Keywords", id: false, force: :cascade do |t|
-    t.integer "Card_id", null: false
-    t.integer "Keyword_id", null: false
-  end
-
-  create_table "Cards_Printings", id: false, force: :cascade do |t|
-    t.integer "Card_id", null: false
-    t.integer "MagicSet_id", null: false
-  end
-
-  create_table "Cards_Subtypes", id: false, force: :cascade do |t|
-    t.integer "Card_id", null: false
-    t.integer "Subtype_id", null: false
-  end
-
-  create_table "Cards_Supertypes", id: false, force: :cascade do |t|
-    t.integer "Card_id", null: false
-    t.integer "Supertype_id", null: false
-  end
-
+ActiveRecord::Schema[7.0].define(version: 2022_10_18_201426) do
   create_table "artists", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "card_keywords", force: :cascade do |t|
+    t.integer "card_id"
+    t.integer "keyword_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_card_keywords_on_card_id"
+    t.index ["keyword_id"], name: "index_card_keywords_on_keyword_id"
+  end
+
+  create_table "card_printings", force: :cascade do |t|
+    t.integer "card_id"
+    t.integer "magic_set_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_card_printings_on_card_id"
+    t.index ["magic_set_id"], name: "index_card_printings_on_magic_set_id"
+  end
+
+  create_table "card_subtypes", force: :cascade do |t|
+    t.integer "card_id"
+    t.integer "subtype_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_card_subtypes_on_card_id"
+    t.index ["subtype_id"], name: "index_card_subtypes_on_subtype_id"
+  end
+
+  create_table "card_supertypes", force: :cascade do |t|
+    t.integer "card_id"
+    t.integer "supertype_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_card_supertypes_on_card_id"
+    t.index ["supertype_id"], name: "index_card_supertypes_on_supertype_id"
+  end
+
+  create_table "card_types", force: :cascade do |t|
+    t.integer "type_id"
+    t.integer "card_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_card_types_on_card_id"
+    t.index ["type_id"], name: "index_card_types_on_type_id"
+  end
+
   create_table "cards", force: :cascade do |t|
-    t.integer "artist_id", null: false
+    t.integer "artist_id"
     t.string "ascii_name"
     t.string "border_color"
     t.string "color_identity"
@@ -59,7 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_17_005955) do
     t.integer "loyalty"
     t.string "mana_cost"
     t.string "name"
-    t.integer "original_printing_id", null: false
+    t.integer "original_printing", null: false
     t.string "power"
     t.string "toughness"
     t.string "rarity"
@@ -70,7 +95,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_17_005955) do
     t.datetime "updated_at", null: false
     t.index ["artist_id"], name: "index_cards_on_artist_id"
     t.index ["magic_set_id"], name: "index_cards_on_magic_set_id"
-    t.index ["original_printing_id"], name: "index_cards_on_original_printing_id"
   end
 
   create_table "keywords", force: :cascade do |t|
@@ -101,7 +125,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_17_005955) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "cards", "artists"
-  add_foreign_key "cards", "magic_set", column: "original_printing_id"
   add_foreign_key "cards", "magic_sets"
 end

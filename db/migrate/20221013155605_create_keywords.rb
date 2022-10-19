@@ -1,6 +1,6 @@
-class CreateKeyword < ActiveRecord::Migration[7.0]
+class CreateKeywords < ActiveRecord::Migration[7.0]
   def change
-    create_table :keyword do |t|
+    create_table :keywords do |t|
       t.string :keyword
       t.text :effect
 

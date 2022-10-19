@@ -1,4 +1,4 @@
 class Keyword < ApplicationRecord
-  belongs_to :card, through: :card_keywords
-  belongs_to :keywords, through: :card_keywords
+  has_many :card_keywords
+  has_many :cards, through: :card_keywords
 end
