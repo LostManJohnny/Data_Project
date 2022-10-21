@@ -11,7 +11,7 @@ cards_csv_data = File.read(cards_csv_file)
 cards = CSV.parse(cards_csv_data, headers: true, encoding: 'utf-8')
 puts ".. Cards parsed\n"
 
-=begin
+# =begin
 puts 'Parsing sets CSV...'
 sets_csv_file = Rails.root.join('db/sets.csv')
 sets_csv_data = File.read(sets_csv_file)
@@ -23,7 +23,7 @@ keywords_csv_file = Rails.root.join('db/keywords.csv')
 keywords_csv_data = File.read(keywords_csv_file)
 keywords = CSV.parse(keywords_csv_data, headers: true, encoding: 'utf-8')
 puts ".. Keywords parsed\n"
-=end
+# =end
 # endregion CSV
 
 # region Data Purge
