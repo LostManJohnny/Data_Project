@@ -1,2 +1,15 @@
-<h1>MagicSets#show</h1>
-<p>Find me in app/views/magic_sets/show.html.erb</p>
+<h1 class="title is-1"><%= @set.name %></h1>
+<h5 class="subtitle is-5"><%= pluralize  @set.cards.count, 'cards' %></h3>
+<% if !@set.cards.blank? %>
+  <table class="table">
+    <thead>
+    </thead>
+    <% @set.cards.each do | card | %>
+      <tr>
+        <td>
+          <%= link_to card.name, card %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

@@ -3,5 +3,7 @@ class HomeController < ApplicationController
     @cards = Card.limit(10)
 
     @sets = MagicSet.limit(10)
+
+    @artists = Artist.limit(10)
   end
 end

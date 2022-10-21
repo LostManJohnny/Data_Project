@@ -11,7 +11,7 @@
       <% end %>
     </ul>
     <p>
-      <%= link_to "Check out the rest of the cards", cards_path %>
+      <%= link_to "Check out the rest of the cards!", cards_path %>
     </p>
   </div>
 
@@ -22,11 +22,27 @@
         <li>
             <%= link_to set.name, set %>
             <em> (<%= set.cards.count %>)</em>
+
         </li>
       <% end %>
     </ul>
     <p>
-      <%= link_to "Check out the rest of the sets", magic_sets_path %>
+      <%= link_to "Explore the rest of the sets here!", magic_sets_path %>
+    </p>
+  </div>
+
+  <div class="column">
+    <h2 class="title is-2">Card Artists</h2>
+    <ul class="ml-5">
+      <% @artists.each do | artist | %>
+        <li>
+            <%= link_to artist.name, artist %>
+            <em> (<%= pluralize artist.cards.count, 'card' %> designed)</em>
+        </li>
+      <% end %>
+    </ul>
+    <p>
+      <%= link_to "See all the artists here!", artists_path %>
     </p>
   </div>
 </div>

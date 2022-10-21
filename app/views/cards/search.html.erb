@@ -19,8 +19,6 @@
         <th>Supertype</th>
         <th>Subtype</th>
         <th>Rarity</th>
-        <th>Card Text</th>
-        <th>Flavor Text</th>
       </thead>
 
       <% @cards.each do | card | %>
@@ -62,8 +60,6 @@
             </ul>
           </td>                                         <!-- Subtype -->
           <td><%= card.rarity %></td>                   <!-- Rarity -->
-          <td><%= card.card_text %></td>                <!-- Card Text -->
-          <td><%= card.flavor_text %></td>              <!-- Flavor Text -->
       <% end %>
 
     </table>

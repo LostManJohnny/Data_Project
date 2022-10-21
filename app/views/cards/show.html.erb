@@ -1,18 +1,75 @@
 <h1 class="title is-1"><%= @card.name %></h1>
-<a href="<%= @scryfall_link %>">
-  <img src="<%= @image_uri %>" alt="<%= @card.name %> image">
-</a>
+<section class="section">
+  <a href="<%= @scryfall_link %>">
+    <img src="<%= @image_uri %>" alt="<%= @card.name %> image">
+  </a>
 
-<h2 class="is-2">Original Printing : <%= link_to @card.original_printing.name, @card.magic_set %></h2>
-<% if @card.magic_sets.count > 0 %>
-  <h3 class="is-3">Alternate Printings:</h3>
-  <ul>
-    <% @card.magic_sets.each do | printing |%>
-      <li class="ml-4">
-        <%= link_to printing.name, printing%>
-      </li>
+  <h2 class="is-2">Original Printing : <%= link_to @card.original_printing.name, @card.magic_set %></h2>
+  <% if @card.magic_sets.count > 0 %>
+    <h3 class="is-3">Alternate Printings:</h3>
+    <ul>
+      <% @card.magic_sets.each do | printing |%>
+        <li class="ml-4">
+          <%= link_to printing.name, printing%>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No other printings</p>
+  <% end%>
+</section>
+<section class="section">
+  <h3 class="title is-3">Card Info</h3>
+  <table class="table">
+    <thead>
+      <td></td>
+      <td></td>
+      <td></td>
+    </thead>
+    <tr>
+      <td>Artist</td>
+      <td><%= link_to @card.artist.name, @card.artist %></td>
+    </tr>
+
+    <tr>
+      <td>Rarity</td>
+      <td><%= @card.rarity %></td>
+    </tr>
+
+    <% if !@card.card_text.nil? %>
+    <tr>
+      <td>Card Text</td>
+      <td><%= @card.card_text %></td>
+    </tr>
     <% end %>
-  </ul>
-<% else %>
+    <tr>
+      <td>Colors</td>
 
-<% end%>
+      <% if @card.colors.blank? %>
+        <td>Colorless</td>
+      <% else %>
+        <td><%= @card.colors %></td>
+      <% end %>
+    </tr>
+  </table>
+
+  <h3 class="title is-3">Unique Characteristics</h3>
+  <table class="table">
+    <thead>
+    </thead>
+
+    <% if !@card.flavor_name.nil? %>
+      <tr>
+        <td>Flavor Name</td>
+        <td><%= @card.flavor_name %></td>
+      </tr>
+    <% end %>
+    <% if !@card.flavor_text.nil? %>
+        <tr>
+          <td>Flavor Text</td>
+          <td><%= @card.flavor_text %></td>
+        </tr>
+    <% end %>
+
+  </table>
+</section>

@@ -5,7 +5,7 @@
 
 <h1 class="title is-1"><%= @artist.name %></h1>
 
-<h4 class="title is-4">Designed <%= @artist.cards.count %> cards</h2>
+<h4 class="subtitle is-4">Designed <%= pluralize @artist.cards.count, 'card' %></h2>
 
 <ul>
   <% @artist.cards.each do | card | %>
