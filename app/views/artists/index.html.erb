@@ -1,0 +1,15 @@
+
+
+<h1 class="title is-1">Artists</h1>
+<table class="table is-fullwidth is-striped">
+  <thead>
+    <td>Artist Name</td>
+    <td>Cards Designed</td>
+  </thead>
+  <% @artists.each do | artist | %>
+    <tr>
+      <td><%= link_to artist.name, artist %></td>
+      <td><%= artist.cards.count %></td>
+    </tr>
+  <% end %>
+</table>

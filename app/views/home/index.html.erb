@@ -1,2 +1,32 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h1 class="title is-1">Magic the Gathering</h1>
+<div class="columns">
+  <div class="column">
+    <h2 class="title is-2">MTG Cards</h2>
+    <ul class="ml-5">
+      <% @cards.each do | card | %>
+        <li>
+            <%= link_to card.name, card %>
+            <em> (<%= card.magic_set.name %>)</em>
+        </li>
+      <% end %>
+    </ul>
+    <p>
+      <%= link_to "Check out the rest of the cards", cards_path %>
+    </p>
+  </div>
+
+  <div class="column">
+    <h2 class="title is-2">MTG Sets</h2>
+    <ul class="ml-5">
+      <% @sets.each do | set | %>
+        <li>
+            <%= link_to set.name, set %>
+            <em> (<%= set.cards.count %>)</em>
+        </li>
+      <% end %>
+    </ul>
+    <p>
+      <%= link_to "Check out the rest of the sets", magic_sets_path %>
+    </p>
+  </div>
+</div>

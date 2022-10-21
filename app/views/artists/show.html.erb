@@ -1,0 +1,25 @@
+<%
+  require("http")
+  require("json")
+%>
+
+<h1 class="title is-1"><%= @artist.name %></h1>
+
+<h4 class="title is-4">Designed <%= @artist.cards.count %> cards</h2>
+
+<ul>
+  <% @artist.cards.each do | card | %>
+    <li>
+      <div>
+        <%= link_to card.name, card %>
+      </div>
+      <img src="
+        <%=
+          req_url = "https://api.scryfall.com/cards/" + card.scryfallid
+          JSON.parse(HTTP.get(req_url).to_s)['image_uris']['art_crop']
+        %>"
+         alt="">
+      <hr>
+    </li>
+  <% end %>
+</ul>

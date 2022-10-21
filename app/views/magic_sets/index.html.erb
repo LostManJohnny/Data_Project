@@ -1,0 +1,29 @@
+<h1 class="titile is-1">MagicSets</h1>
+
+<%= paginate @sets %>
+
+<div class="row margin-twenty5-zero margin-b-zero pagination-row">
+  <div class="col-lg-8 col-md-8 col-sm-7 col-xs-6 padding-zero">
+    <table class="table is-bordered is-hoverable is-fullwidth">
+      <thead>
+        <th>Set Code</th>
+        <th>Set Name</th>
+        <th>Block</th>
+        <th># Cards in Database</th>
+        <th>Release Date</th>
+      </thead>
+      <% @sets.each do | set | %>
+        <tr>
+          <td><%= set.code %></td>
+          <td><%= link_to set.name, set %></td>
+          <td><%= set.block %></td>
+          <td><%= set.cards.count %></td>
+          <td><%= set.release_date %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6 pagination-info">
+    <span class=”pull-right”><%= page_entries_info(@sets) %></span>
+  </div>
+</div>

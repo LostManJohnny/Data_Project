@@ -1,2 +1,18 @@
-<h1>Cards#show</h1>
-<p>Find me in app/views/cards/show.html.erb</p>
+<h1 class="title is-1"><%= @card.name %></h1>
+<a href="<%= @scryfall_link %>">
+  <img src="<%= @image_uri %>" alt="<%= @card.name %> image">
+</a>
+
+<h2 class="is-2">Original Printing : <%= link_to @card.original_printing.name, @card.magic_set %></h2>
+<% if @card.magic_sets.count > 0 %>
+  <h3 class="is-3">Alternate Printings:</h3>
+  <ul>
+    <% @card.magic_sets.each do | printing |%>
+      <li class="ml-4">
+        <%= link_to printing.name, printing%>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+
+<% end%>

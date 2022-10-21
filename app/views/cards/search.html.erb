@@ -1,10 +1,10 @@
-<h1 class="title is-1">Cards</h1>
+<h1 class="title is-1">Card Search Results</h1>
 
-<%= paginate @cards%>
+<%= paginate @cards %>
 
 <div class="row margin-twenty5-zero margin-b-zero pagination-row">
-  <div class="col-lg-15 col-md-15 col-sm-7 col-xs-6 padding-zero">
-    <table class="table is-striped is-hoverable is-fullwidth">
+  <div class="col-lg-8 col-md-8 col-sm-7 col-xs-6 padding-zero">
+    <table class="table is-bordered is-hoverable is-fullwidth">
       <thead>
         <th>Name</th>
         <th>Flavour Name</th>
@@ -64,7 +64,6 @@
           <td><%= card.rarity %></td>                   <!-- Rarity -->
           <td><%= card.card_text %></td>                <!-- Card Text -->
           <td><%= card.flavor_text %></td>              <!-- Flavor Text -->
-
       <% end %>
 
     </table>

@@ -10,7 +10,69 @@
     <%= javascript_importmap_tags %>
   </head>
 
+  <header>
+    <section class="section">
+      <div class="container">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="./home/index">
+              <img src="https://versions.bulma.io/0.7.0/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
+            </a>
+
+            <div id="navbarBasicExample" class="navbar-menu">
+              <div class="navbar-start">
+                <%= link_to "Home", home_index_path, class: "navbar-item" %>
+
+                <%= link_to "About", about_index_path, class: "navbar-item" %>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link">
+                    More
+                  </a>
+
+                  <div class="navbar-dropdown">
+                    <%= link_to "Cards", cards_index_path, class: "navbar-item" %>
+                    <%= link_to "Sets", magic_sets_index_path, class: "navbar-item" %>
+                    <%= link_to "Artists", artists_index_path, class: "navbar-item" %>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </nav>
+      </div>
+    </section>
+  </header>
+
   <body>
-    <%= yield %>
+    <section class="section">
+      <div class="container">
+        <main class="container mx-auto mt-28 px-5 flex">
+          <%= form_with(url: search_cards_path, method: :get, local: true) do %>
+            <div class="field is-ground mb-5">
+              <div class="control is-expanded">
+                <%= text_field_tag(:keywords, nil, class: "input", placeholder: 'Search for cards!') %>
+              </div>
+              <div class="control">
+                <%=submit_tag("Search", class: "button is-primary")%>
+              </div>
+            </div>
+          <% end %>
+          <%= yield %>
+        </main>
+      </div>
+    </section>
   </body>
+
+  <footer class="footer">
+    <section class="section">
+      <div class="container">
+        <% if controller_name == 'cards' %>
+          <p>Card data was provided by <a href="https://mtgjson.com/">MTG JSON</a></p>
+        <% elsif controller_name == 'magic_sets' %>
+          <p>Set data was provided by <a href="https://mtgjson.com/">MTG JSON</a> and <a href="https://scryfall.com/docs/api">Scryfall API</a></p>
+        <% end %>
+      </div>
+    </section>
+  </footer>
+
 </html>
