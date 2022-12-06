@@ -3,6 +3,8 @@ class Card < ApplicationRecord
   belongs_to :magic_set
   belongs_to :original_printing, class_name: "MagicSet", foreign_key: "original_printing"
 
+  has_one :product
+
   has_many :card_keywords
   has_many :card_subtypes
   has_many :card_supertypes

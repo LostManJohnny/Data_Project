@@ -19,10 +19,26 @@
   <% end%>
 </section>
 <section class="section">
-  <h3 class="title is-3">Card Info</h3>
+  <h3 class="title is-3">Store Info</h3>
   <table class="table">
     <thead>
       <td></td>
+      <td></td>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Stock</td>
+        <td><%= number_with_precision(@card.product.stock, precision: 0) %></td>
+      </tr>
+      <tr>
+        <td>Price</td>
+        <td>$<%= number_with_precision(@card.product.price, precision: 2) %></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 class="title is-3">Card Info</h3>
+  <table class="table">
+    <thead>
       <td></td>
       <td></td>
     </thead>

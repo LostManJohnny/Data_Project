@@ -79,3 +79,11 @@ gem 'bulma-rails', '~> 0.0.4.1'
 gem "kaminari", "~> 1.2"
 
 gem "http", "~> 5.1"
+
+gem "sassc-rails", "~> 2.1"
+
+gem "activeadmin", "~> 2.13"
+
+gem "devise", "~> 4.8"
+
+gem "httparty", "~> 0.20.0"
