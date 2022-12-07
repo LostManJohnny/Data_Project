@@ -5,8 +5,8 @@
     <ul class="ml-5">
       <% @cards.each do | card | %>
         <li>
-            <%= link_to card.name, card %>
-            <em> (<%= card.magic_set.name %>)</em>
+            <%= link_to (card.name + ", " + card.magic_set.name), card %>
+            <em> ($<%= number_with_precision(card.product.price, precision: 2) %>)</em>
         </li>
       <% end %>
     </ul>
@@ -16,33 +16,33 @@
   </div>
 
   <div class="column">
-    <h2 class="title is-2">MTG Sets</h2>
+    <h2 class="title is-2">Products</h2>
     <ul class="ml-5">
-      <% @sets.each do | set | %>
+      <% @products.each do | product | %>
         <li>
-            <%= link_to set.name, set %>
-            <em> (<%= set.cards.count %>)</em>
-
+            <%= link_to product.card.name, product.card %>
+            <em> (<%= product.stock %> in stock | $<%= number_with_precision(product.price, precision: 2) %> each)</em>
         </li>
       <% end %>
     </ul>
     <p>
-      <%= link_to "Explore the rest of the sets here!", magic_sets_path %>
+      <%= link_to "See the rest of our products here!", products_index_path %>
     </p>
   </div>
 
   <div class="column">
-    <h2 class="title is-2">Card Artists</h2>
+    <h2 class="title is-2">Big Ticket Items</h2>
     <ul class="ml-5">
-      <% @artists.each do | artist | %>
+      <% @ticket_items.each do | item | %>
         <li>
-            <%= link_to artist.name, artist %>
-            <em> (<%= pluralize artist.cards.count, 'card' %> designed)</em>
+            <%= link_to item.card.name, item.card %>
+            <em> ($<%= number_with_precision(item.price, precision: 2) %> | <%= item.stock %> in stock)</em>
+
         </li>
       <% end %>
     </ul>
     <p>
-      <%= link_to "See all the artists here!", artists_path %>
+      <%= link_to "See all that we have to offer here!", products_index_path %>
     </p>
   </div>
 </div>
