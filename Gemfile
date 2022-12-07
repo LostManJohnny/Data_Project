@@ -79,3 +79,5 @@ gem 'bulma-rails', '~> 0.0.4.1'
 gem "kaminari", "~> 1.2"
 
 gem "http", "~> 5.1"
+
+gem "bcrypt", "~> 3.1"
