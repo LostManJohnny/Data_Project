@@ -1,5 +1,8 @@
 class ProductsController < ApplicationController
+  helper ProductsHelper
+
   def index
+    @products = Product.order(id: :asc).page(params[:page])
   end
 
   def show

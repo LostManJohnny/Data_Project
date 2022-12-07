@@ -87,3 +87,5 @@ gem "activeadmin", "~> 2.13"
 gem "devise", "~> 4.8"
 
 gem "httparty", "~> 0.20.0"
+
+gem "down", "~> 5.3"

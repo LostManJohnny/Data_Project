@@ -1,4 +1,6 @@
 class Card < ApplicationRecord
+  has_one_attached :image_uri
+
   belongs_to :artist
   belongs_to :magic_set
   belongs_to :original_printing, class_name: "MagicSet", foreign_key: "original_printing"

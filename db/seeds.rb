@@ -4,6 +4,7 @@
 require('csv')
 require('date')
 require('httparty')
+require('down')
 
 ##
 # It takes a CSV file, parses it, and adds the data to the database
@@ -442,8 +443,8 @@ def seed_products
   card_list = Card.all
   puts "Creating new products (#{card_list.count})"
   count = 0
+  base_url = 'https://api.scryfall.com/cards/'
   card_list.each do | card |
-    base_url = 'https://api.scryfall.com/cards/'
 
     scryfallid = card.scryfallid
 
@@ -473,5 +474,30 @@ def replace_null_prices
   Product.where(:price => 0).update_all(price: 0.50);
 end
 
+def seed_images
+  cards = Card.all
+
+  puts "Getting images (#{card_list.count})"
+  count = 0
+  base_url = 'https://api.scryfall.com/cards/'
+
+  cards.each do | card |
+
+    scryfallid = card.scryfallid
+
+    response = HTTParty.get(base_url + scryfallid)
+    if response.code == 200
+      response_json = response.parsed_response
+      uris = response_json['image-uris']
+      normal = uris['normal']
+      image = Down.download(normal)
+      filename = card.id.to_s + ".jpg"
+      card.image.attach(io: image, filename: filename)
+    end
+
+  end
+end
+
 # seed_products();
 # replace_null_prices();
+seed_images();
