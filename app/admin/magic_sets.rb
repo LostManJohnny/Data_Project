@@ -5,7 +5,7 @@ ActiveAdmin.register MagicSet do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :code, :name, :block, :release_date
+  permit_params :code, :name, :block, :release_date
   #
   # or
   #
@@ -14,5 +14,5 @@ ActiveAdmin.register MagicSet do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  
+
 end

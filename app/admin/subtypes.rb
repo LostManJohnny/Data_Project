@@ -5,7 +5,8 @@ ActiveAdmin.register Subtype do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :name
+  # Allowing the user to edit the name of the subtype.
+  permit_params :name
   #
   # or
   #
@@ -14,5 +15,5 @@ ActiveAdmin.register Subtype do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  
+
 end

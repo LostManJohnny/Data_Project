@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
+
+  root to: "home#index"
+
   get 'contact/index'
   get 'product/index'
   get 'product/show'
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
-  root to: "home#index"
 
   get 'home/index'
   get 'about/index'
@@ -23,6 +23,13 @@ Rails.application.routes.draw do
 
   get 'products/index'
   get 'products/show'
+
+  post 'products/add_to_cart/:id', to: 'products#add_to_cart', as: 'add_to_cart'
+  post 'products/remove_quantity_from_cart/:id', to: 'products#remove_quantity_from_cart', as: 'remove_quantity_from_cart'
+  delete 'products/remove_from_cart/:id', to: 'products#remove_from_cart', as: 'remove_from_cart'
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
 
   resources :cards, only: [:index, :show] do
     collection do

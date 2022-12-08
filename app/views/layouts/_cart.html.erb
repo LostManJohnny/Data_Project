@@ -1,0 +1,20 @@
+<details>
+  <summary>Shopping Cart</summary>
+
+  <% if @cart_id.blank? %>
+    <p>No items in cart.</p>
+  <% else %>
+    <ul>
+      <% @cart_id.each do | product | %>
+
+        <% index = session[:ids].index(product.id) %>
+        <li>
+          <%= @cart_quantity[index]%> x <%= product.card.name %>
+        </li>
+
+      <% end %>
+
+    </ul>
+  <% end %>
+
+</details>

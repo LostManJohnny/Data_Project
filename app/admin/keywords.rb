@@ -5,7 +5,7 @@ ActiveAdmin.register Keyword do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :keyword, :effect
+  permit_params :keyword, :effect
   #
   # or
   #
@@ -14,5 +14,5 @@ ActiveAdmin.register Keyword do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  
+
 end

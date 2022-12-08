@@ -315,6 +315,8 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  activeadmin (~> 2.13)
+  bcrypt (~> 3.1)
   bootsnap
   bulma-rails (~> 0.0.4.1)
   capybara
