@@ -2,9 +2,13 @@ class Card < ApplicationRecord
   validates :name, presence: true, uniqueness: { case_sensitive: true }
   validates :original_printing, :scryfallid, :rarity, presence: true
 
+  has_one_attached :image_uri
+
   belongs_to :artist
   belongs_to :magic_set
   belongs_to :original_printing, class_name: "MagicSet", foreign_key: "original_printing"
+
+  has_one :product
 
   has_many :card_keywords
   has_many :card_subtypes

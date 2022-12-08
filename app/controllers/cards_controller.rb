@@ -2,6 +2,8 @@ require("http")
 require("json")
 
 class CardsController < ApplicationController
+  helper CardsHelper
+
   def index
     @cards = Card.order(id: :asc).page(params[:page])
   end

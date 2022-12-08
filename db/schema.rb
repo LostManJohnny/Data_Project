@@ -207,4 +207,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_051736) do
   add_foreign_key "cards", "artists"
   add_foreign_key "cards", "magic_sets"
   add_foreign_key "products", "cards"
+  add_foreign_key "products", "cards"
 end
