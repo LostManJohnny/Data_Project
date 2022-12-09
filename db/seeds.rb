@@ -16,20 +16,20 @@ def full_seed
   cards = CSV.parse(cards_csv_data, headers: true, encoding: 'utf-8')
   puts ".. Cards parsed\n"
 
-# =begin
-puts 'Parsing sets CSV...'
-sets_csv_file = Rails.root.join('db/sets.csv')
-sets_csv_data = File.read(sets_csv_file)
-card_sets = CSV.parse(sets_csv_data, headers: true, encoding: 'utf-8')
-puts ".. Sets parsed\n"
+  # =begin
+  puts 'Parsing sets CSV...'
+  sets_csv_file = Rails.root.join('db/sets.csv')
+  sets_csv_data = File.read(sets_csv_file)
+  card_sets = CSV.parse(sets_csv_data, headers: true, encoding: 'utf-8')
+  puts ".. Sets parsed\n"
 
-puts 'Parsing keywords CSV...'
-keywords_csv_file = Rails.root.join('db/keywords.csv')
-keywords_csv_data = File.read(keywords_csv_file)
-keywords = CSV.parse(keywords_csv_data, headers: true, encoding: 'utf-8')
-puts ".. Keywords parsed\n"
-# =end
-# endregion CSV
+  puts 'Parsing keywords CSV...'
+  keywords_csv_file = Rails.root.join('db/keywords.csv')
+  keywords_csv_data = File.read(keywords_csv_file)
+  keywords = CSV.parse(keywords_csv_data, headers: true, encoding: 'utf-8')
+  puts ".. Keywords parsed\n"
+  # =end
+  # endregion CSV
 
   puts 'Parsing keywords CSV...'
   keywords_csv_file = Rails.root.join('db/keywords.csv')
@@ -506,6 +506,115 @@ def seed_images
   end
 end
 
+def seed_provinces
+  Province.create(
+    name: "Alberta",
+    code: "AB",
+    pst: 0,
+    hst: 0,
+    gst: 0.05
+  )
+
+  Province.create(
+    name: "British Columbia",
+    code: "BC",
+    pst: 0.07,
+    hst: 0,
+    gst: 0.05
+  )
+
+  Province.create(
+    name: "Manitoba",
+    code: "MB",
+    pst: 0.07,
+    hst: 0,
+    gst: 0.05
+  )
+
+  Province.create(
+    name: "New Brunswick",
+    code: "NB",
+    pst: 0,
+    hst: 0.15,
+    gst: 0
+  )
+
+  Province.create(
+    name: "Newfoundland and Labrador",
+    code: "NL",
+    pst: 0,
+    hst: 0.15,
+    gst: 0
+  )
+
+  Province.create(
+    name: "Northwest Territories",
+    code: "NT",
+    pst: 0,
+    hst: 0,
+    gst: 0.05
+  )
+
+  Province.create(
+    name: "Nova Scotia",
+    code: "NS",
+    pst: 0,
+    hst: 0.15,
+    gst: 0
+  )
+
+  Province.create(
+    name: "Nunavut",
+    code: "NU",
+    pst: 0,
+    hst: 0,
+    gst: 0.05
+  )
+
+  Province.create(
+    name: "Ontario",
+    code: "ON",
+    pst: 0,
+    hst: 0.13,
+    gst: 0
+  )
+
+  Province.create(
+    name: "Prince Edward Island",
+    code: "PE",
+    pst: 0,
+    hst: 0.15,
+    gst: 0
+  )
+
+  Province.create(
+    name: "Quebec",
+    code: "QB",
+    pst: 0.0975,
+    hst: 0,
+    gst: 0.05
+  )
+
+  Province.create(
+    name: "Saskatchewan",
+    code: "SK",
+    pst: 0.06,
+    hst: 0,
+    gst: 0.05
+  )
+
+  Province.create(
+    name: "Yukon",
+    code: "YK",
+    pst: 0,
+    hst: 0,
+    gst: 0.05
+  )
+
+
+end
+
 # seed_products();
 # replace_null_prices();
-seed_images();
+# seed_images();
+seed_provinces();

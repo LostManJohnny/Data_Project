@@ -1,14 +1,12 @@
 <%
-subtotal = 0
-tax = 0
-puts "Tax Percentage : "
-puts @tax_p
+  subtotal = 0
+  tax = 0
 %>
 
 <div class="container">
   <h1 class="title is-1">Invoice</h1>
   <%= form_with method: :get, class: "form" do | f | %>
-    <%= f.select 'province', options_for_select([ "MB","AB", "BC", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT"]), class: "select" %>
+    <%= f.select 'province', options_for_select(Province.all.map{|el| [el.name, el.code]}), class: "select" %>
     <%= f.button "Update Tax"%>
   <% end %>
 
@@ -54,6 +52,5 @@ puts @tax_p
     </tbody>
   </table>
 
-
-  <% button_to 'Checkout' %>
+  <%= button_tag 'Checkout', class: "button is-primary" %>
 </div>

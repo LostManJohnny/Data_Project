@@ -44,7 +44,7 @@ class CheckoutController < ApplicationController
     when "SK"
       return 0.11
 
-    when "YT"
+    when "YK"
       return 0.05
 
     else
