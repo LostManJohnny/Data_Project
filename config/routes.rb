@@ -26,6 +26,8 @@ Rails.application.routes.draw do
 
   get 'checkout/index'
 
+  get 'pages/:permalink' => "pages#permalink", as: 'permalink'
+
   post 'products/add_to_cart/:id', to: 'products#add_to_cart', as: 'add_to_cart'
   post 'products/remove_qty_from_cart/:id', to: 'products#remove_qty_from_cart', as: 'remove_qty_from_cart'
   delete 'products/remove_from_cart/:id', to: 'products#remove_from_cart', as: 'remove_from_cart'

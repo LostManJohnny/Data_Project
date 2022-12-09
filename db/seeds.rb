@@ -614,7 +614,29 @@ def seed_provinces
 
 end
 
+def seed_pages
+  Page.create(
+    title: "About",
+    content:"",
+    permalink:"about"
+  )
+
+  Page.create(
+    title: "Contact",
+    content: "<p>
+    Hi, if you have questions or would like to contact me directly, feel free to give us a call at 204-555-1234 or email us at majorcollection@majorcollections.ca
+  </p>
+  <p>
+    You could also drop by, we are located <br>
+    43 Card St<br>
+    Winnipeg, MB
+  </p>",
+    permalink: "contact"
+  )
+end
+
 # seed_products();
 # replace_null_prices();
 # seed_images();
-seed_provinces();
+# seed_provinces();
+seed_pages();
