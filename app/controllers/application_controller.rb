@@ -2,11 +2,53 @@ class ApplicationController < ActionController::Base
   before_action :initalize_session
   before_action :load_cart
 
+  def add_to_cart
+    id = params[:id].to_i
+
+    if session[:ids].include?(id)
+      index = session[:ids].index(id)
+      session[:qty][index] += 1
+    else
+      session[:ids] << id
+      session[:qty] << 1
+    end
+
+    redirect_to products_index_path
+  end
+
+  def remove_from_cart
+    id = params[:id].to_i
+
+    index = session[:ids].index(id)
+    session[:ids].delete_at(index)
+    session[:qty].delete_at(index)
+
+    redirect_to products_index_path
+  end
+
+  def remove_qty_from_cart
+    id = params[:id].to_i
+
+    if session[:ids].include?(id)
+      index = session[:ids].index(id)
+      session[:qty][index] -= 1
+
+      if session[:qty][index] == 0
+        session[:ids].delete_at(index)
+        session[:qty].delete_at(index)
+      end
+    end
+
+    redirect_to products_index_path
+  end
+
   private
   def load_cart
     if !session[:ids].blank? && !session[:ids].empty?
       @cart_id = Product.find(session[:ids])
       @cart_quantity = session[:qty]
+    else
+      @cart_id = []
     end
   end
 

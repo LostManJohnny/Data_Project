@@ -17,31 +17,39 @@
       <div class="container">
         <nav class="navbar" role="navigation" aria-label="main navigation">
           <div class="navbar-brand">
-            <a class="navbar-item" href="<%= home_index_path %>">
-              <img src="https://versions.bulma.io/0.7.0/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
-            </a>
+            <figure class="navbar-item">
+              <img src=<%= asset_path("logo.png") %> alt="MTG Logo" width="112" height="33">
+            </figure>
+          </div>
 
-            <div id="navbarBasicExample" class="navbar-menu">
-              <div class="navbar-start">
-                <%= link_to "Home", home_index_path, class: "navbar-item" %>
+          <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+              <%= link_to "Home", home_index_path, class: "navbar-item" %>
 
-                <%= link_to "About", about_index_path, class: "navbar-item" %>
+              <%= link_to "About", about_index_path, class: "navbar-item" %>
 
-                <%= link_to "Contact", contact_index_path, class: "navbar-item" %>
+              <%= link_to "Contact", contact_index_path, class: "navbar-item" %>
 
-                <div class="navbar-item has-dropdown is-hoverable">
-                  <a class="navbar-link">
-                    More
-                  </a>
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  More
+                </a>
 
-                  <div class="navbar-dropdown">
-                    <%= link_to "Cards", cards_index_path, class: "navbar-item" %>
-                    <%= link_to "Sets", magic_sets_index_path, class: "navbar-item" %>
-                    <%= link_to "Artists", artists_index_path, class: "navbar-item" %>
-                  </div>
+                <div class="navbar-dropdown">
+                  <%= link_to "Cards", cards_index_path, class: "navbar-item" %>
+                  <%= link_to "Sets", magic_sets_index_path, class: "navbar-item" %>
+                  <%= link_to "Artists", artists_index_path, class: "navbar-item" %>
                 </div>
               </div>
-          </div>
+            </div>
+            <div class="navbar-end">
+              <% if controller_name != "checkout" %>
+                <%= render "layouts/cart" %>
+                <% if @cart_id.count > 0 %>
+                  <%= button_to 'Checkout', checkout_index_path, method: :get, class: "button is-primary"%>
+                <% end %>
+              <% end %>
+            </div>
         </nav>
       </div>
     </section>
@@ -50,14 +58,13 @@
   <body>
     <section class="section">
       <div class="container">
-        <div>
-          <%= render "layouts/cart" %>
-        </div>
         <main class="container mx-auto mt-28 px-5 flex">
           <%= form_with(url: search_cards_path, method: :get, local: true) do %>
 
             <div class="field is-ground mb-5 is-display-flex flex-direction-row">
-              <%= select_tag 'type', options_for_select(Type.all.map{|el| [el.name, el.id]}), :prompt => "All Card Types", class: "select"%>
+              <div class="select is-info">
+                <%= select_tag 'type', options_for_select(Type.all.map{|el| [el.name, el.id]}), :prompt => "All Card Types", class: "select"%>
+              </div>
               <%= text_field_tag(:keywords, nil, class: "input", placeholder: 'Search for cards!') %>
               <%= submit_tag("Search", class: "button is-primary")%>
             </div>

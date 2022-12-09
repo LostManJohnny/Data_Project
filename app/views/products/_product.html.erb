@@ -25,7 +25,11 @@
       <% if !session[:ids].include?(product.id) %>
         <%= button_to 'Add to Cart', add_to_cart_path(product.id),  :disabled => product.stock == 0, class: "button is-primary is-normal" %>
       <% else %>
-        BALFEWAFHI
+        <div class="is-flex">
+          <%= button_to '+', add_to_cart_path(product.id), class: "button is-primary is-small ml-2" %>
+          <%= button_to '-', remove_qty_from_cart_path(product.id), class: "button is-warning is-small ml-2" %>
+          <%= button_to 'X', remove_from_cart_path(product.id), class: "button is-danger is-small ml-2", method: :delete%>
+        </div>
       <% end %>
     </div>
 </div>

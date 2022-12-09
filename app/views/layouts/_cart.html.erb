@@ -1,15 +1,19 @@
 <details>
-  <summary>Shopping Cart</summary>
-
+  <summary>Shopping Cart (<%= @cart_id.count %>)</summary>
   <% if @cart_id.blank? %>
     <p>No items in cart.</p>
   <% else %>
-    <ul>
+    <ul class="mb-4">
       <% @cart_id.each do | product | %>
 
         <% index = session[:ids].index(product.id) %>
         <li>
-          <%= @cart_quantity[index]%> x <%= product.card.name %>
+          <div class="is-flex flex-direction-row is-align-content-center is-align-items-center mb-2">
+            <%= @cart_quantity[index]%> x <%= product.card.name %>
+            <%= button_to 'Add 1', add_to_cart_path(product.id), class: "button is-primary is-small ml-2" %>
+            <%= button_to 'Remove 1', remove_qty_from_cart_path(product.id), class: "button is-warning is-small ml-2" %>
+            <%= button_to 'Delete', remove_from_cart_path(product.id), class: "button is-danger is-small ml-2", method: :delete%>
+          </div>
         </li>
 
       <% end %>
