@@ -1,0 +1,59 @@
+<%
+subtotal = 0
+tax = 0
+puts "Tax Percentage : "
+puts @tax_p
+%>
+
+<div class="container">
+  <h1 class="title is-1">Invoice</h1>
+  <%= form_with method: :get, class: "form" do | f | %>
+    <%= f.select 'province', options_for_select([ "MB","AB", "BC", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT"]), class: "select" %>
+    <%= f.button "Update Tax"%>
+  <% end %>
+
+  <table class="table">
+    <thead>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Total</th>
+    </thead>
+    <tbody>
+        <% @cart_id.each do | product | %>
+          <tr>
+            <td>
+              <%= link_to product.card.name, product.card %>
+            </td>
+            <td>
+              <%= @cart_quantity[session[:ids].index(product.id)]%>
+            </td>
+            <td>
+              $<%= number_with_precision(product.price * @cart_quantity[session[:ids].index(product.id)], precision: 2) %>
+              <% subtotal = subtotal + product.price * @cart_quantity[session[:ids].index(product.id)] %>
+            </td>
+          </tr>
+        <% end %>
+        <tr>
+          <td></td>
+          <td>Subtotal Total</td>
+          <td>$<%= number_with_precision(subtotal, precision: 2) %></td>
+        </tr>
+        <tr>
+          <td class="text-align-right">
+          <%= params[:province] if params[:province]%>
+          @ <%= number_with_precision(@tax_p.to_f * 100, precision: 2) %>%</td>
+          <td>Tax</td>
+          <% tax = (@tax_p.to_f * subtotal) %>
+          <td>$<%= number_with_precision(tax, precision: 2) %></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Grand Total</td>
+          <td>$<%= number_with_precision(subtotal + tax, precision: 2) %></td>
+        </tr>
+    </tbody>
+  </table>
+
+
+  <% button_to 'Checkout' %>
+</div>

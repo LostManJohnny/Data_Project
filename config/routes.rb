@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   get 'products/index'
   get 'products/show'
 
+  get 'checkout/index'
+
   post 'products/add_to_cart/:id', to: 'products#add_to_cart', as: 'add_to_cart'
   post 'products/remove_quantity_from_cart/:id', to: 'products#remove_quantity_from_cart', as: 'remove_quantity_from_cart'
   delete 'products/remove_from_cart/:id', to: 'products#remove_from_cart', as: 'remove_from_cart'
