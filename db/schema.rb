@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_07_051736) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_09_023722) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -204,18 +204,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_051736) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.string "password_digest"
-    t.string "username"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cards", "artists"
   add_foreign_key "cards", "magic_sets"
-  add_foreign_key "products", "cards"
   add_foreign_key "products", "cards"
 end
