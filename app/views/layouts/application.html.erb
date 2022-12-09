@@ -11,6 +11,8 @@
   </head>
 
   <header>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <section class="section">
       <div class="container">
         <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -54,14 +56,10 @@
         <main class="container mx-auto mt-28 px-5 flex">
           <%= form_with(url: search_cards_path, method: :get, local: true) do %>
 
-            <div class="field is-ground mb-5">
-              <div class="control is-expanded">
-                <%= select_tag 'type', options_for_select(Type.all.map{|el| [el.name, el.id]}), :prompt => "All Card Types" %>
-                <%= text_field_tag(:keywords, nil, class: "input", placeholder: 'Search for cards!') %>
-              </div>
-              <div class="control">
-                <%=submit_tag("Search", class: "button is-primary")%>
-              </div>
+            <div class="field is-ground mb-5 is-display-flex flex-direction-row">
+              <%= select_tag 'type', options_for_select(Type.all.map{|el| [el.name, el.id]}), :prompt => "All Card Types", class: "select"%>
+              <%= text_field_tag(:keywords, nil, class: "input", placeholder: 'Search for cards!') %>
+              <%= submit_tag("Search", class: "button is-primary")%>
             </div>
           <% end %>
           <%= yield %>
