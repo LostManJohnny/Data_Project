@@ -11,8 +11,6 @@
   </head>
 
   <header>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
     <section class="section">
       <div class="container">
         <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -25,6 +23,7 @@
           <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
               <%= link_to "Home", home_index_path, class: "navbar-item" %>
+              <%= link_to "Products", products_index_path, class: "navbar-item" %>
 
               <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
@@ -50,11 +49,40 @@
               </div>
             </div>
             <div class="navbar-end">
+              <% if user_signed_in? %>
+                Logged in as <strong><%= current_user.email %></strong>.
+                <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-item' %> |
+                <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-item'  %>
+              <% else %>
+                <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-item'  %> |
+                <%= link_to "Login", new_user_session_path, :class => 'navbar-item'  %>
+              <% end %>
+
+
               <% if controller_name != "checkout" %>
-                <%= render "layouts/cart" %>
-                <% if @cart_id.count > 0 %>
-                  <%= button_to 'Checkout', checkout_index_path, method: :get, class: "button is-primary"%>
-                <% end %>
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link">
+                    Shopping Cart (<%=@cart_id.count%>)
+                  </a>
+                  <div class="navbar-dropdown">
+                    <% if @cart_id.count == 0 %>
+                      No items in cart
+                    <% else %>
+                      <% @cart_id.each do | product | %>
+                        <% index = session[:ids].index(product.id) %>
+                        <div class="is-flex flex-direction-row is-align-content-center is-align-items-center navbar-item">
+                          <%= @cart_quantity[index]%> x <%= product.card.name %>
+                          <%= button_to '+', add_to_cart_path(product.id), class: "button is-primary is-small ml-2" %>
+                          <%= button_to '-', remove_qty_from_cart_path(product.id), class: "button is-warning is-small ml-2" %>
+                          <%= button_to 'X', remove_from_cart_path(product.id), class: "button is-danger is-small ml-2", method: :delete%>
+                        </div>
+                      <% end %>
+                    <% end %>
+                    <% if @cart_id.count > 0 %>
+                      <%= button_to 'Checkout', checkout_index_path, method: :get, class: "button is-primary navbar-item"%>
+                    <% end %>
+                  </div>
+                </div>
               <% end %>
             </div>
         </nav>
@@ -75,6 +103,12 @@
               <%= text_field_tag(:keywords, nil, class: "input", placeholder: 'Search for cards!') %>
               <%= submit_tag("Search", class: "button is-primary")%>
             </div>
+          <% end %>
+          <% if notice %>
+            <p class="alert alert-success"><%= notice %></p>
+          <% end %>
+          <% if alert %>
+            <p class="alert alert-danger"><%= alert %></p>
           <% end %>
           <%= yield %>
         </main>

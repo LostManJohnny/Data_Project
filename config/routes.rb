@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   post 'products/remove_qty_from_cart/:id', to: 'products#remove_qty_from_cart', as: 'remove_qty_from_cart'
   delete 'products/remove_from_cart/:id', to: 'products#remove_from_cart', as: 'remove_from_cart'
 
+  devise_for :users
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 

@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  skip_before_action :authenticate_user!
   # GET /pages/1 or /pages/1.json
   def permalink
     @page = Page.find_by(permalink: params[:permalink])

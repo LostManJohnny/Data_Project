@@ -1,4 +1,5 @@
 class CheckoutController < ApplicationController
+  skip_before_action :authenticate_user!
   def index
     @tax_p = update_tax()
   end

@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   helper ProductsHelper
+  skip_before_action :authenticate_user!
 
   def index
     @products = Product.order(id: :asc).page(params[:page])
