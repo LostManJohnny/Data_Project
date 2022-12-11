@@ -7,7 +7,7 @@
   <h1 class="title is-1">Invoice</h1>
   <%= form_with method: :get, class: "form" do | f | %>
     <div class="select is-rounded is-primary">
-      <%= f.select 'province', options_for_select(Province.all.map{|el| [el.name, el.code]}) %>
+      <%= f.select 'province', options_for_select(Province.all.map{|p| [p.name, p.id]}, params[:province]) %>
     </div>
     <%= f.button "Update Tax", class: "button is-info"%>
   <% end %>
@@ -46,7 +46,7 @@
         <tr>
           <td></td>
           <td class="text-align-right">
-          <%= params[:province] if params[:province]%>
+          <%= Province.find(params[:province]).code if params[:province] %>
           @ <%= number_with_precision(@tax_p.to_f * 100, precision: 2) %>%</td>
           <td>Tax</td>
           <% tax = (@tax_p.to_f * subtotal) %>
@@ -61,5 +61,5 @@
     </tbody>
   </table>
 
-  <%= button_to 'Checkout', '' ,class: "button is-primary" %>
+  <%= button_to 'Checkout', checkout_path, data: {turbo: false}, method: :get, class: "button is-primary" %>
 </div>

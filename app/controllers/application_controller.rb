@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :initalize_session
   before_action :load_cart
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   def add_to_cart
     id = params[:id].to_i
@@ -56,5 +57,13 @@ class ApplicationController < ActionController::Base
   def initalize_session
     session[:ids] ||= []
     session[:qty] ||= []
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    attributes = [:username, :province_id]
+    devise_parameter_sanitizer.permit(:sign_up, keys: attributes)
+    devise_parameter_sanitizer.permit(:account_update, keys: attributes)
   end
 end

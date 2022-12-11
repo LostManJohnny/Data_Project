@@ -1,16 +1,14 @@
 <div class="card">
+    <h1 class="card-header-title">
+      <%= product.card.name %>
+    </h1>
     <a href=<%= cards_show_path id: product.card %>>
-      <div class="card-image">
+      <div class="card-image px-2">
         <figure class="image is-2by3">
           <img src="<%= get_product_image(product) %>" alt="<%= product.card.name %> image">
         </figure>
       </div>
     </a>
-    <div class="card-header">
-      <h1 class="card-header-title">
-        <%= product.card.name %>
-      </h1>
-    </div>
     <div class="card-content">
       <div>
         <% if product.stock > 0 %>

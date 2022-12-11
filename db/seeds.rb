@@ -635,8 +635,16 @@ def seed_pages
   )
 end
 
+def seed_country
+  Country.create(
+    name: "Canada",
+    code: "CA"
+  )
+end
+
 # seed_products();
 # replace_null_prices();
 # seed_images();
 # seed_provinces();
-seed_pages();
+# seed_pages();
+seed_country();

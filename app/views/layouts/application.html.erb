@@ -8,6 +8,7 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <script src="https://js.stripe.com/v3/"></script>
   </head>
 
   <header>
@@ -49,15 +50,29 @@
               </div>
             </div>
             <div class="navbar-end">
-              <% if user_signed_in? %>
-                Logged in as <strong><%= current_user.email %></strong>.
-                <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-item' %> |
-                <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-item'  %>
-              <% else %>
-                <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-item'  %> |
-                <%= link_to "Login", new_user_session_path, :class => 'navbar-item'  %>
-              <% end %>
 
+
+              <% if user_signed_in? %>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                      <%= current_user.email %>
+                    </a>
+                    <div class="navbar-dropdown">
+                      <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-item' %>
+                      <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }  , :class => 'navbar-item'  %>
+                    </div>
+                  </div>
+              <% else %>
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link">
+                    Profile
+                  </a>
+                  <div class="navbar-dropdown">
+                    <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-item'  %>
+                    <%= link_to "Login", new_user_session_path, :class => 'navbar-item'  %>
+                  </div>
+                </div>
+              <% end %>
 
               <% if controller_name != "checkout" %>
                 <div class="navbar-item has-dropdown is-hoverable">
@@ -66,7 +81,7 @@
                   </a>
                   <div class="navbar-dropdown">
                     <% if @cart_id.count == 0 %>
-                      No items in cart
+                      <p class="has-text-centered">No items in cart</p>
                     <% else %>
                       <% @cart_id.each do | product | %>
                         <% index = session[:ids].index(product.id) %>
@@ -96,7 +111,7 @@
         <main class="container mx-auto mt-28 px-5 flex">
           <%= form_with(url: search_cards_path, method: :get, local: true) do %>
 
-            <div class="field is-ground mb-5 is-display-flex flex-direction-row">
+            <div class="is-display-flex flex-direction-row">
               <div class="select is-info">
                 <%= select_tag 'type', options_for_select(Type.all.map{|el| [el.name, el.id]}), :prompt => "All Card Types", class: "select"%>
               </div>
@@ -114,6 +129,9 @@
         </main>
       </div>
     </section>
+    <%= debug params %>
+    <%= debug User.find(current_user.id).province_id%>
+    <%= debug current_user %>
   </body>
 
   <footer class="footer">

@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   get 'products/show'
 
   get 'checkout/index'
+  get "checkout", to: "checkout#show"
+  get "success", to: "checkout#success", as: "success"
+  get "cancel", to: "checkout#cancel", as: "cancel"
 
   get 'pages/:permalink' => "pages#permalink", as: 'permalink'
 
@@ -32,7 +35,12 @@ Rails.application.routes.draw do
   post 'products/remove_qty_from_cart/:id', to: 'products#remove_qty_from_cart', as: 'remove_qty_from_cart'
   delete 'products/remove_from_cart/:id', to: 'products#remove_from_cart', as: 'remove_from_cart'
 
-  devise_for :users
+  # Creating a route for the user to sign in.
+  # devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
@@ -47,6 +55,7 @@ Rails.application.routes.draw do
       get "search"
     end
   end
+
 
   resources :artists, only: [:index, :show]
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_10_204234) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_11_074746) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -51,6 +51,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_10_204234) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.integer "country_id", null: false
+    t.integer "province_id", null: false
+    t.string "street_name"
+    t.integer "street_number"
+    t.integer "unit_number"
+    t.string "city"
+    t.string "postal_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["country_id"], name: "index_addresses_on_country_id"
+    t.index ["province_id"], name: "index_addresses_on_province_id"
+    t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -151,6 +167,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_10_204234) do
     t.index ["magic_set_id"], name: "index_cards_on_magic_set_id"
   end
 
+  create_table "countries", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "keywords", force: :cascade do |t|
     t.string "keyword"
     t.text "effect"
@@ -212,6 +235,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_10_204234) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_addresses", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "address_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_id"], name: "index_user_addresses_on_address_id"
+    t.index ["user_id"], name: "index_user_addresses_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -220,13 +252,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_10_204234) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "username"
+    t.integer "province_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["province_id"], name: "index_users_on_province_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "addresses", "countries"
+  add_foreign_key "addresses", "provinces"
+  add_foreign_key "addresses", "users"
   add_foreign_key "cards", "artists"
   add_foreign_key "cards", "magic_sets"
   add_foreign_key "products", "cards"
+  add_foreign_key "user_addresses", "addresses"
+  add_foreign_key "user_addresses", "users"
+  add_foreign_key "users", "provinces"
 end

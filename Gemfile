@@ -91,3 +91,5 @@ gem "httparty", "~> 0.20.0"
 gem "down", "~> 5.3"
 
 gem "bcrypt", "~> 3.1"
+
+gem "stripe", "~> 8.0"

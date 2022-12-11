@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   skip_before_action :authenticate_user!
 
   def index
-    @products = Product.order(id: :asc).page(params[:page])
+    @products = Product.order(id: :asc).page(params[:page]).per(8)
   end
 
   def show
