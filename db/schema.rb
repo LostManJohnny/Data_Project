@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_11_074746) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_12_022448) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -190,6 +190,29 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_11_074746) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "quantity"
+    t.decimal "unit_price"
+    t.integer "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.datetime "complete_date"
+    t.integer "status_id", null: false
+    t.decimal "shipping_cost"
+    t.string "shipping_address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["status_id"], name: "index_orders_on_status_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "pages", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -213,6 +236,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_11_074746) do
     t.decimal "pst"
     t.decimal "hst"
     t.decimal "gst"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.string "status"
+    t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -254,6 +284,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_11_074746) do
     t.datetime "updated_at", null: false
     t.string "username"
     t.integer "province_id"
+    t.integer "primary_address"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["province_id"], name: "index_users_on_province_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -266,6 +297,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_11_074746) do
   add_foreign_key "addresses", "users"
   add_foreign_key "cards", "artists"
   add_foreign_key "cards", "magic_sets"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
+  add_foreign_key "orders", "statuses"
+  add_foreign_key "orders", "users"
   add_foreign_key "products", "cards"
   add_foreign_key "user_addresses", "addresses"
   add_foreign_key "user_addresses", "users"

@@ -48,6 +48,13 @@
                   <%= link_to "Artists", artists_index_path, class: "navbar-item" %>
                 </div>
               </div>
+              <%= form_with(url: search_cards_path, method: :get, local: true, class:"is-flex flex-direction-row is-align-items-center") do %>
+                <div class="select is-info navbar-search">
+                  <%= select_tag 'type', options_for_select(Type.all.map{|el| [el.name, el.id]}), :prompt => "All Card Types"%>
+                </div>
+                <%= text_field_tag(:keywords, nil, class: "input navbar-search", placeholder: 'Search for cards!') %>
+                <%= submit_tag("Search", class: "button is-primary navbar-search")%>
+              <% end %>
             </div>
             <div class="navbar-end">
 
@@ -68,7 +75,7 @@
                     Profile
                   </a>
                   <div class="navbar-dropdown">
-                    <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-item'  %>
+                    <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-item'%>
                     <%= link_to "Login", new_user_session_path, :class => 'navbar-item'  %>
                   </div>
                 </div>
@@ -106,19 +113,10 @@
   </header>
 
   <body>
-    <section class="section">
+    <section>
       <div class="container">
-        <main class="container mx-auto mt-28 px-5 flex">
-          <%= form_with(url: search_cards_path, method: :get, local: true) do %>
+        <main class="container mx-auto mt-1 px-5 flex">
 
-            <div class="is-display-flex flex-direction-row">
-              <div class="select is-info">
-                <%= select_tag 'type', options_for_select(Type.all.map{|el| [el.name, el.id]}), :prompt => "All Card Types", class: "select"%>
-              </div>
-              <%= text_field_tag(:keywords, nil, class: "input", placeholder: 'Search for cards!') %>
-              <%= submit_tag("Search", class: "button is-primary")%>
-            </div>
-          <% end %>
           <% if notice %>
             <p class="alert alert-success"><%= notice %></p>
           <% end %>
@@ -130,7 +128,7 @@
       </div>
     </section>
     <%= debug params %>
-    <%= debug User.find(current_user.id).province_id%>
+    <%= debug User.find(current_user.id).province_id if current_user && !current_user.blank? %>
     <%= debug current_user %>
   </body>
 

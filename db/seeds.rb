@@ -642,9 +642,52 @@ def seed_country
   )
 end
 
+def seed_statuses
+  Status.create(
+    status: "Placed",
+    code: "P"
+  )
+
+  Status.create(
+    status: "Pending - Shipping",
+    code: "PEN-S"
+  )
+
+  Status.create(
+    status: "Pending - Payment",
+    code: "PEN-P"
+  )
+
+  Status.create(
+    status: "Shipped",
+    code: "S"
+  )
+
+  Status.create(
+    status: "Error - Payment",
+    code: "E-P"
+  )
+
+  Status.create(
+    status: "Error - Address",
+    code: "E-A"
+  )
+
+  Status.create(
+    status: "Error - Stock",
+    code: "E-S"
+  )
+
+  Status.create(
+    status: "Cancelled",
+    code: "C"
+  )
+end
+
 # seed_products();
 # replace_null_prices();
 # seed_images();
 # seed_provinces();
 # seed_pages();
-seed_country();
+# seed_country();
+seed_statuses();
