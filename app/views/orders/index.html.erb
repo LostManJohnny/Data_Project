@@ -1,0 +1,29 @@
+<h2 class="title is-2">Order History</h2>
+<table class="table is-striped is-fullwidth">
+  <thead>
+    <th>Order Number</th>
+    <th>Order Date</th>
+    <th>Last Update</th>
+    <th>Order Status</th>
+    <th>Shipping Cost</th>
+    <th>Taxes</th>
+    <th>Total Cost</th>
+  </thead>
+  <tbody>
+    <% @orders.each do | order | %>
+      <% order_total = 0 %>
+      <% order.order_items.each do | item | %>
+        <% order_total = order_total + (item.unit_price * item.quantity) %>
+      <% end %>
+      <tr>
+        <td><%= link_to order.id, orders_show_path(order.id) %></td>
+        <td><%= order.created_at %></td>
+        <td><%= order.updated_at %></td>
+        <td><%= order.status.status %></td>
+        <td><%= number_with_precision(order.shipping_cost, precision: 2) %></td>
+        <td><%= number_with_precision(order.taxes, precision: 2) %></td>
+        <td>$<%= number_with_precision(order_total + order.taxes, precision: 2) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

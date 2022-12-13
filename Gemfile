@@ -93,3 +93,7 @@ gem "down", "~> 5.3"
 gem "bcrypt", "~> 3.1"
 
 gem "stripe", "~> 8.0"
+
+gem "rubocop", "~> 1.40"
+
+gem "rubocop-rails", "~> 2.17"

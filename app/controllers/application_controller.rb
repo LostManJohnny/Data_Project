@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
       index = session[:ids].index(id)
       session[:qty][index] -= 1
 
-      if session[:qty][index] == 0
+      if (session[:qty][index]).zero?
         session[:ids].delete_at(index)
         session[:qty].delete_at(index)
       end
@@ -45,8 +45,9 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
   def load_cart
-    if !session[:ids].blank? && !session[:ids].empty?
+    if session[:ids].present? && !session[:ids].empty?
       @cart_id = Product.find(session[:ids])
       @cart_quantity = session[:qty]
     else
@@ -62,8 +63,13 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    attributes = [:username, :province_id]
+    attributes = %i[username province_id]
     devise_parameter_sanitizer.permit(:sign_up, keys: attributes)
     devise_parameter_sanitizer.permit(:account_update, keys: attributes)
+  end
+
+  def calculate_tax(province, total)
+    prov = Province.find(province)
+    (prov.gst * total) + (prov.hst * total) + (prov.pst * total)
   end
 end

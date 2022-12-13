@@ -1,4 +1,6 @@
 class Address < ApplicationRecord
+  validates :country_id, :province_id, :street_name, :street_number, :city, :postal_code, :user_id, presence: true
+
   belongs_to :country
   belongs_to :province
 
@@ -7,15 +9,13 @@ class Address < ApplicationRecord
   def to_s
     addr = ""
 
-    if !unit_number.blank?
-      addr = unit_number.to_s + "-"
-    end
+    addr = "#{unit_number}-" if unit_number.present?
 
-    addr = addr + street_number.to_s + " " + street_name + "\n"
-    addr = addr + city + ", " + Province.find(province_id).name + "\n"
-    addr = addr + postal_code + "\n"
-    addr = addr + Country.find(country_id).name
+    addr = "#{addr}#{street_number} #{street_name}\n"
+    addr = "#{addr}#{city}, #{Province.find(province_id).name}\n"
+    addr = "#{addr}#{postal_code}\n"
+    addr += Country.find(country_id).name
 
-    return addr
+    addr
   end
 end

@@ -1,6 +1,6 @@
 class Card < ApplicationRecord
   validates :name, presence: true, uniqueness: { case_sensitive: true }
-  validates :original_printing, :scryfallid, :rarity, presence: true
+  validates :scryfallid, :rarity, presence: true
 
   has_one_attached :image_uri
 

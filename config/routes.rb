@@ -24,10 +24,14 @@ Rails.application.routes.draw do
   get 'products/index'
   get 'products/show'
 
-  get 'checkout/index'
+  get 'checkout/index', to:"checkout#index", as: "checkout_index"
   get "checkout", to: "checkout#show"
   get "success", to: "checkout#success", as: "success"
   get "cancel", to: "checkout#cancel", as: "cancel"
+
+  get 'order_history', to:"orders#index", as: "order_history"
+  get 'orders/show', to:"orders#show"
+  get 'user/addresses', to: "user_profile#addresses", as: "user_addresses"
 
   get 'pages/:permalink' => "pages#permalink", as: 'permalink'
 

@@ -1,0 +1,36 @@
+<h1 class="title is-1">Order <%= @order.id %></h1>
+<h3 class="title is-3">Status: <%= @order.status.status %></h3>
+<h4 class="title is-4">Last Update: <%= @order.updated_at %></h4>
+<table class="table is-striped">
+  <thead>
+    <th>Product</th>
+    <th>Quantity</th>
+    <th>Unit Price</th>
+  </thead>
+  <tbody>
+    <% subtotal = 0 %>
+    <% @order.order_items.each do | item | %>
+      <tr>
+        <% subtotal = subtotal + (item.unit_price * item.quantity) %>
+        <td><%= item.product.card.name %></td>
+        <td><%= item.quantity %></td>
+        <td>$<%= number_with_precision(item.unit_price, :precision => 2) %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td></td>
+      <td>Subtotal Total</td>
+      <td>$<%= number_with_precision(subtotal, precision: 2) %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Tax</td>
+      <td>$<%= number_with_precision(@order.taxes, precision: 2) %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Grand Total</td>
+      <td>$<%= number_with_precision(subtotal + @order.taxes, precision: 2) %></td>
+    </tr>
+  </tbody>
+</table>

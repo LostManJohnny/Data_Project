@@ -14,10 +14,10 @@ class ProductsController < ApplicationController
     Product.find(params[:id]).card.name
   end
 
-  def display_name
-  end
+  def display_name; end
 
   private
+
   def user_params
     params.require(:product).permit(:card_id, :stock, :price)
   end
