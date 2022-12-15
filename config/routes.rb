@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   get 'products/index'
   get 'products/show'
 
+  get 'category/index'
+  get 'category/show'
+
   get 'checkout/index', to:"checkout#index", as: "checkout_index"
   get "checkout", to: "checkout#show"
   get "success", to: "checkout#success", as: "success"

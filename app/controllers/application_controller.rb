@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
       session[:qty] << 1
     end
 
-    redirect_to products_index_path
+    redirect_to request.fullpath
   end
 
   def remove_from_cart
@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
     session[:ids].delete_at(index)
     session[:qty].delete_at(index)
 
-    redirect_to products_index_path
+    redirect_to request.fullpath
   end
 
   def remove_qty_from_cart
@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    redirect_to products_index_path
+    redirect_to request.fullpath
   end
 
   private

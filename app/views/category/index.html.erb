@@ -1,0 +1,7 @@
+<ul>
+  <% @categories.each do | cat | %>
+    <li>
+      <%= link_to cat.name, category_show_path(:type => cat) %>
+    </li>
+  <% end %>
+</ul>

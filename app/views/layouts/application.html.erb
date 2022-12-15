@@ -39,7 +39,7 @@
               </div>
               <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
-                  Categories
+                  Sections
                 </a>
 
                 <div class="navbar-dropdown">
@@ -48,6 +48,20 @@
                   <%= link_to "Artists", artists_index_path, class: "navbar-item" %>
                 </div>
               </div>
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  Categories
+                </a>
+                <div class="navbar-dropdown">
+                  <%= link_to 'All Categories', category_index_path, class: "navbar-item" %>
+                  <hr >
+                  <% Type.all.each do | type | %>
+                    <%= link_to type.name, category_show_path(:type => type.id), class: "navbar-item"%>
+
+                  <% end %>
+                </div>
+              </div>
+
               <%= form_with(url: search_cards_path, method: :get, local: true, class:"is-flex flex-direction-row is-align-items-center") do %>
                 <div class="select is-info navbar-search">
                   <%= select_tag 'type', options_for_select(Type.all.map{|el| [el.name, el.id]}), :prompt => "All Card Types"%>

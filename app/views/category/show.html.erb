@@ -1,0 +1,18 @@
+<h1 class="title is-1">Products</h1>
+
+<%= paginate @cards %>
+
+<div class="mb-2">
+  <%= @cards.in_groups_of(4, false) do | cards | %>
+    <div class="row is-flex is-flex-direction-row is-justify-content-space-evenly mb-3">
+      <% cards.each do | card | %>
+        <%= render :partial => 'products/product', locals: {product: Product.find_by(card_id: card.id)}%>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<%= paginate @cards %>
+
+
+<%= debug @cards %>

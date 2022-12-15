@@ -28,6 +28,9 @@
           <%= button_to '-', remove_qty_from_cart_path(product.id), class: "button is-warning is-small ml-2" %>
           <%= button_to 'X', remove_from_cart_path(product.id), class: "button is-danger is-small ml-2", method: :delete%>
         </div>
+        <div class="is-flex is-justify-content-around">
+          Qty: <%= session[:qty][session[:ids].index(product.id)] %>
+        </div>
       <% end %>
     </div>
 </div>
