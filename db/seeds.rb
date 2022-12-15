@@ -730,10 +730,12 @@ def seed_statuses
   )
 end
 
-# seed_products()
-# replace_null_prices()
-# seed_images()
-# seed_provinces()
-# seed_pages()
-# seed_country()
-seed_statuses
+full_seed()
+seed_activeadmin()
+seed_products()
+replace_null_prices()
+seed_images()
+seed_provinces()
+seed_pages()
+seed_country()
+seed_statuses()
